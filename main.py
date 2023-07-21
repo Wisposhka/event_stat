@@ -125,11 +125,11 @@ def edit1():
     tk.Label(edit, text='play style').pack()
     edit_E9 = ttk.Combobox(edit, value=playstyle)
     edit_E9.pack()
-    team = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои']
+    team = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои', 'Баланс']
     tk.Label(edit, text='Команда').pack()
     edit_E10 = ttk.Combobox(edit, value=team)
     edit_E10.pack()
-    enemy = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои']
+    enemy = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои' , 'Баланс']
     tk.Label(edit, text='Противники').pack()
     edit_E11 = ttk.Combobox(edit, value=enemy)
     edit_E11.pack()
