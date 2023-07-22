@@ -75,8 +75,10 @@ else:
                 else:
                     Best_weapon = 'ФН'
 
-kda_weapon = round(df.game_4.loc[df['game_8'] == Best_weapon].sum() / df.game_5.loc[df['game_8'] == Best_weapon].sum(), 2)
-print(kda_weapon)  #print(df.game_4.loc[df['game_8'] == Best_weapon].sum()) KeyError: '[21, 16, 24, 19] not in index' <---- ЭТО РЕВОЛЮЦИЯ, НЕ ЗАБУДЬ ПРО ЭТО
+kda_weapon = round(df.game_4.loc[df['game_8'] == Best_weapon].sum() / df.game_5.loc[df['game_8'] == Best_weapon].sum(),
+                   2)
+print(
+    kda_weapon)  # print(df.game_4.loc[df['game_8'] == Best_weapon].sum()) KeyError: '[21, 16, 24, 19] not in index' <---- ЭТО РЕВОЛЮЦИЯ, НЕ ЗАБУДЬ ПРО ЭТО
 
 
 def show_winrate():
@@ -125,3 +127,104 @@ def show_weapon():
     ax.axis('equal')
     plt.title('Выбор оружия')
     plt.show()
+
+
+def show_team():
+    df = pandas_test()
+    t1 = (df.game_10.loc[df['game_10'] == 'АОшки'].count())
+    t2 = (df.game_10.loc[df['game_10'] == 'Пакеты'].count())
+    t3 = (df.game_10.loc[df['game_10'] == 'Боевые'].count())
+    t4 = (df.game_10.loc[df['game_10'] == 'Зверобои'].count())
+    t5 = (df.game_10.loc[df['game_10'] == 'Баланс'].count())
+
+    data = {'Category': ['АОшки', 'Пакеты', 'Боевые', 'Зверобои', 'Баланс'],
+            'Value': [t1, t2, t3, t4, t5]}
+    for_circle = pd.DataFrame(data)
+    fig, ax = plt.subplots()
+    ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
+    ax.axis('equal')
+    plt.title('Что выбирает твоя командка')
+    plt.show()
+
+
+def show_enemy():
+    df = pandas_test()
+    e1 = (df.game_11.loc[df['game_11'] == 'АОшки'].count())
+    e2 = (df.game_11.loc[df['game_11'] == 'Пакеты'].count())
+    e3 = (df.game_11.loc[df['game_11'] == 'Боевые'].count())
+    e4 = (df.game_11.loc[df['game_11'] == 'Зверобои'].count())
+    e5 = (df.game_11.loc[df['game_11'] == 'Баланс'].count())
+
+    data = {'Category': ['АОшки', 'Пакеты', 'Боевые', 'Зверобои', 'Баланс'],
+            'Value': [e1, e2, e3, e4, e5]}
+    for_circle = pd.DataFrame(data)
+    fig, ax = plt.subplots()
+    ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
+    ax.axis('equal')
+    plt.title('Выбор противников')
+    plt.show()
+
+
+# ЩА АХУЕЕТЕ
+
+# def show_chance():
+paket = 'Пакеты'
+boevie = 'Боевые'
+AOshki = 'АОшки'
+zveroboi = 'Зверобои'
+balans = 'Баланс'
+
+et01 = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Победа') & (df['game_11'] == paket)].count()
+et01p = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Поражение') & (df['game_11'] == paket)].count()
+et02 = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Победа') & (df['game_11'] == boevie)].count()
+et02p = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Поражение') & (df['game_11'] == boevie)].count()
+et05 = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Победа') & (df['game_11'] == AOshki)].count()
+et05p = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Поражение') & (df['game_11'] == AOshki)].count()
+et03 = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Победа') & (df['game_11'] == zveroboi)].count()
+et03p = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Поражение') & (df['game_11'] == zveroboi)].count()
+et04 = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Победа') & (df['game_11'] == balans)].count()
+et04p = df.game_10.loc[(df['game_10'] == AOshki) & (df['game_3'] == 'Поражение') & (df['game_11'] == balans)].count()
+
+et10 = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Победа') & (df['game_11'] == zveroboi)].count()
+et10p = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Поражение') & (df['game_11'] == zveroboi)].count()
+et15 = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Победа') & (df['game_11'] == paket)].count()
+et15p = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Поражение') & (df['game_11'] == paket)].count()
+et12 = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Победа') & (df['game_11'] == boevie)].count()
+et12p = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Поражение') & (df['game_11'] == boevie)].count()
+et13 = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Победа') & (df['game_11'] == AOshki)].count()
+et13p = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Поражение') & (df['game_11'] == AOshki)].count()
+et14 = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Победа') & (df['game_11'] == balans)].count()
+et14p = df.game_10.loc[(df['game_10'] == paket) & (df['game_3'] == 'Поражение') & (df['game_11'] == balans)].count()
+
+et20 = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Победа') & (df['game_11'] == zveroboi)].count()
+et20p = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Поражение') & (df['game_11'] == zveroboi)].count()
+et25 = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Победа') & (df['game_11'] == boevie)].count()
+et25p = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Поражение') & (df['game_11'] == boevie)].count()
+et21 = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Победа') & (df['game_11'] == paket)].count()
+et21p = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Поражение') & (df['game_11'] == paket)].count()
+et23 = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Победа') & (df['game_11'] == AOshki)].count()
+et23p = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Поражение') & (df['game_11'] == AOshki)].count()
+et24 = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Победа') & (df['game_11'] == balans)].count()
+et24p = df.game_10.loc[(df['game_10'] == boevie) & (df['game_3'] == 'Поражение') & (df['game_11'] == balans)].count()
+
+et30 = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Победа') & (df['game_11'] == AOshki)].count()
+et30p = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Поражение') & (df['game_11'] == AOshki)].count()
+et31 = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Победа') & (df['game_11'] == paket)].count()
+et31p = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Поражение') & (df['game_11'] == paket)].count()
+et32 = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Победа') & (df['game_11'] == zveroboi)].count()
+et32p = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Поражение') & (df['game_11'] == zveroboi)].count()
+et34 = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Победа') & (df['game_11'] == boevie)].count()
+et34p = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Поражение') & (df['game_11'] == boevie)].count()
+et35 = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Победа') & (df['game_11'] == balans)].count()
+et35p = df.game_10.loc[(df['game_10'] == balans) & (df['game_3'] == 'Поражение') & (df['game_11'] == balans)].count()
+
+et40 = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Победа') & (df['game_11'] == AOshki)].count()
+et40p = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Поражение') & (df['game_11'] == AOshki)].count()
+et41 = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Победа') & (df['game_11'] == paket)].count()
+et41p = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Поражение') & (df['game_11'] == paket)].count()
+et42 = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Победа') & (df['game_11'] == boevie)].count()
+et42p = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Поражение') & (df['game_11'] == boevie)].count()
+et43 = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Победа') & (df['game_11'] == balans)].count()
+et43p = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Поражение') & (df['game_11'] == balans)].count()
+et45 = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Победа') & (df['game_11'] == zveroboi)].count()
+et45p = df.game_10.loc[(df['game_10'] == zveroboi) & (df['game_3'] == 'Поражение') & (df['game_11'] == zveroboi)].count()

@@ -3,7 +3,9 @@ from tkinter import messagebox as ms
 import tkinter.ttk as ttk
 import sqlite3
 from datetime import datetime
-import pandas_t
+import pandas_t as pt
+import pandas as pd
+import matplotlib.pyplot as plt
 
 games_tabl = sqlite3.connect("games_tabl")
 games_tabl_C = games_tabl.cursor()
@@ -24,7 +26,7 @@ game_13 INTEGER PRIMARY KEY AUTOINCREMENT
 )""")
 games_tabl.commit()
 
-df = pandas_t.pandas_test()
+df = pt.pandas_test()
 
 root = tk.Tk()
 root.title('Статистика ивента')
@@ -129,7 +131,7 @@ def edit1():
     tk.Label(edit, text='Команда').pack()
     edit_E10 = ttk.Combobox(edit, value=team)
     edit_E10.pack()
-    enemy = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои' , 'Баланс']
+    enemy = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои', 'Баланс']
     tk.Label(edit, text='Противники').pack()
     edit_E11 = ttk.Combobox(edit, value=enemy)
     edit_E11.pack()
@@ -171,16 +173,174 @@ frame1 = tk.Frame(frame0, height=500, width=100, padx=200)
 name_label = tk.Label(frame1, text="Статистика")
 name_label.pack()
 
-kda = pandas_t.kda
-kda_armor = pandas_t.kda_armor
-kda_weapon = pandas_t.kda_weapon
+kda = pt.kda
+kda_armor = pt.kda_armor
+kda_weapon = pt.kda_weapon
 kda = kda.astype(str)
 kda_armor = kda_armor.astype(str)
 kda_weapon = kda_weapon.astype(str)
 
-tk.Label(frame1, text='Твой КД: '+kda).pack()
-tk.Label(frame1, text='Лучшая броня: ' + pandas_t.Best_armor + ' ' + 'КД: ' + kda_armor).pack()
-tk.Label(frame1, text='Лучшее оружие: ' + pandas_t.Best_weapon + ' ' + 'КД: ' + kda_weapon).pack()
+team = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои', 'Баланс']
+tk.Label(frame1, text='Команда').pack()
+edit111 = ttk.Combobox(frame1, value=team)
+edit111.pack()
+enemy = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои', 'Баланс']
+tk.Label(frame1, text='Противники').pack()
+edit222 = ttk.Combobox(frame1, value=enemy)
+edit222.pack()
+
+
+def raschet():
+    team: str = edit111.get()
+    enemy: str = edit222.get()
+    print(team, enemy)
+    orwin = 1
+    orlose = 1
+
+    def show_chance():
+        orwin2 = orwin
+        orlose2 = orlose
+        print(orwin2, orlose2)
+        data = {'Category': ['Победа', 'Поражение'],
+                'Value': [orwin2, orlose2]}
+        for_circle = pd.DataFrame(data)
+        fig, ax = plt.subplots()
+        ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
+        ax.axis('equal')
+        plt.title('Прогноз на игру')
+        plt.show()
+
+    if team == pt.paket:
+        if enemy == pt.paket:
+            orwin = pt.et15
+            orlose = pt.et15p
+            show_chance()
+        else:
+            if enemy == pt.boevie:
+                orwin = pt.et12
+                orlose = pt.et12p
+                show_chance()
+            else:
+                if enemy == pt.AOshki:
+                    orwin = pt.et13
+                    orlose = pt.et13p
+                    show_chance()
+                else:
+                    if enemy == pt.zveroboi:
+                        orwin = pt.et10
+                        orlose = pt.et10p
+                        show_chance()
+                    else:
+                        orwin = pt.et14
+                    orlose = pt.et14p
+                    show_chance()
+    else:
+        if team == pt.boevie:
+            if enemy == pt.paket:
+                orwin = pt.et21
+                orlose = pt.et21p
+                show_chance()
+            else:
+                if enemy == pt.boevie:
+                    orwin = pt.et25
+                    orlose = pt.et25p
+                    show_chance()
+                else:
+                    if enemy == pt.AOshki:
+                        orwin = pt.et23
+                        orlose = pt.et23p
+                        show_chance()
+                    else:
+                        if enemy == pt.zveroboi:
+                            orwin = pt.et20
+                            orlose = pt.et20p
+                            show_chance()
+                        else:
+                            orwin = pt.et24
+                            orlose = pt.et24p
+                            show_chance()
+        else:
+            if team == pt.AOshki:
+                if enemy == pt.paket:
+                    orwin = pt.et01
+                    orlose = pt.et01p
+                    show_chance()
+                else:
+                    if enemy == pt.boevie:
+                        orwin = pt.et02
+                        orlose = pt.et02p
+                        show_chance()
+                    else:
+                        if enemy == pt.AOshki:
+                            orwin = pt.et05
+                            orlose = pt.et05p
+                            show_chance()
+                        else:
+                            if enemy == pt.zveroboi:
+                                orwin = pt.et03
+                                orlose = pt.et03p
+                                show_chance()
+                            else:
+                                orwin = pt.et04
+                                orlose = pt.et04p
+                                show_chance()
+            else:
+                if team == pt.zveroboi:
+                    if enemy == pt.paket:
+                        orwin = pt.et41
+                        orlose = pt.et41p
+                        show_chance()
+                    else:
+                        if enemy == pt.boevie:
+                            orwin = pt.et42
+                            orlose = pt.et42p
+                            show_chance()
+                        else:
+                            if enemy == pt.AOshki:
+                                orwin = pt.et40
+                                orlose = pt.et40p
+                                show_chance()
+                            else:
+                                if enemy == pt.zveroboi:
+                                    orwin = pt.et45
+                                    orlose = pt.et45p
+                                    show_chance()
+                                else:
+                                    orwin = pt.et43
+                                    orlose = pt.et43p
+                                    show_chance()
+                else:
+                    if team == pt.balans:
+                        if enemy == pt.paket:
+                            orwin = pt.et31
+                            orlose = pt.et31p
+                            show_chance()
+                        else:
+                            if enemy == pt.boevie:
+                                orwin = pt.et34
+                                orlose = pt.et34p
+                                show_chance()
+                            else:
+                                if enemy == pt.AOshki:
+                                    orwin = pt.et30
+                                    orlose = pt.et30p
+                                    show_chance()
+                                else:
+                                    if enemy == pt.zveroboi:
+                                        orwin = pt.et32
+                                        orlose = pt.et32p
+                                        show_chance()
+                                    else:
+                                        orwin = pt.et35
+                                        orlose = pt.et35p
+                                        show_chance()
+
+
+tk.Button(frame1, text='Расчитать', command=raschet).pack()
+
+tk.Label(frame1, text='Твой КД: ' + kda).pack()
+tk.Label(frame1, text='Лучшая броня: ' + pt.Best_armor + ' ' + 'КД: ' + kda_armor).pack()
+tk.Label(frame1, text='Лучшее оружие: ' + pt.Best_weapon + ' ' + 'КД: ' + kda_weapon).pack()
 
 frame1.pack(side=tk.LEFT)
 
@@ -197,9 +357,11 @@ button_add = tk.Button(fbl, text='Добавить', command=edit1)
 button_add.pack()
 buttonf15 = tk.Button(fbl, text='Удалить', command=delete_w)
 buttonf15.pack()
-tk.Button(fbr, command=pandas_t.show_winrate, text='Винрейт').pack()
-tk.Button(fbr, command=pandas_t.show_armor, text='Выбор брони').pack()
-tk.Button(fbr, command=pandas_t.show_weapon, text='Выбор оружия').pack()
+tk.Button(fbr, command=pt.show_winrate, text='Винрейт').pack()
+tk.Button(fbr, command=pt.show_armor, text='Выбор брони').pack()
+tk.Button(fbr, command=pt.show_weapon, text='Выбор оружия').pack()
+tk.Button(fbr, command=pt.show_team, text='Командка').pack()
+tk.Button(fbr, command=pt.show_enemy, text='Вороги').pack()
 
 frame2.pack(side=tk.RIGHT)
 
