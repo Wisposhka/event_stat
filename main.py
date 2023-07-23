@@ -210,7 +210,6 @@ def raschet():
             plt.show()
         except:
             ms.showerror(title="Windows.exe", message="Нет данных")
-
     show_chance()
 
 
