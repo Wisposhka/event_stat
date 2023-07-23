@@ -13,7 +13,9 @@ def pandas_test():
 df = pandas_test()
 df['game_4'] = df['game_4'].astype(int)
 df['game_5'] = df['game_5'].astype(int)
+df['game_6'] = df['game_6'].astype(int)
 kda = (round(df['game_4'].sum() / df['game_5'].sum(), 2))
+uron = (round(df['game_6'].sum()/ df['game_6'].count(), 1))
 
 # Улучшить по возможности
 armor1 = df.game_7.loc[(df['game_7'] == 'Боевая') & (df['game_3'] == 'Победа')].count() - df.game_7.loc[
@@ -24,7 +26,6 @@ armor3 = df.game_7.loc[(df['game_7'] == 'АО') & (df['game_3'] == 'Победа
     (df['game_7'] == 'АО') & (df['game_3'] == 'Поражение')].count()
 armor4 = df.game_7.loc[(df['game_7'] == 'Зверобой') & (df['game_3'] == 'Победа')].count() - df.game_7.loc[
     (df['game_7'] == 'Зверобой') & (df['game_3'] == 'Поражение')].count()
-print(armor1, armor2, armor3, armor4)
 
 Best_armor = ''
 
@@ -75,10 +76,7 @@ else:
                 else:
                     Best_weapon = 'ФН'
 
-kda_weapon = round(df.game_4.loc[df['game_8'] == Best_weapon].sum() / df.game_5.loc[df['game_8'] == Best_weapon].sum(),
-                   2)
-print(
-    kda_weapon)  # print(df.game_4.loc[df['game_8'] == Best_weapon].sum()) KeyError: '[21, 16, 24, 19] not in index' <---- ЭТО РЕВОЛЮЦИЯ, НЕ ЗАБУДЬ ПРО ЭТО
+kda_weapon = round(df.game_4.loc[df['game_8'] == Best_weapon].sum() / df.game_5.loc[df['game_8'] == Best_weapon].sum(), 2)
 
 
 def show_winrate():
@@ -162,4 +160,18 @@ def show_enemy():
     ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
     ax.axis('equal')
     plt.title('Выбор противников')
+    plt.show()
+
+def show_side():
+    df = pandas_test()
+    s1 = (df.game_12.loc[df['game_12'] == 'Санитары'].count())
+    s2 = (df.game_12.loc[df['game_12'] == 'Блаженные'].count())
+
+    data = {'Category': ['Санитары', 'Блаженные'],
+            'Value': [s1, s2]}
+    for_circle = pd.DataFrame(data)
+    fig, ax = plt.subplots()
+    ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
+    ax.axis('equal')
+    plt.title('Сторона')
     plt.show()

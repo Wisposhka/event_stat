@@ -173,12 +173,16 @@ frame1 = tk.Frame(frame0, height=500, width=100, padx=200)
 name_label = tk.Label(frame1, text="Статистика")
 name_label.pack()
 
-kda = pt.kda
-kda_armor = pt.kda_armor
-kda_weapon = pt.kda_weapon
-kda = kda.astype(str)
-kda_armor = kda_armor.astype(str)
-kda_weapon = kda_weapon.astype(str)
+kda = pt.kda.astype(str)
+kda_armor = pt.kda_armor.astype(str)
+kda_weapon = pt.kda_weapon.astype(str)
+uron = pt.uron.astype(str)
+
+tk.Label(frame1, text='Всего игр: ' + df['game_13'].count().astype(str)).pack()
+tk.Label(frame1, text='Твой КД: ' + kda).pack()
+tk.Label(frame1, text='Лучшая броня: ' + pt.Best_armor + ' ' + 'КД: ' + kda_armor).pack()
+tk.Label(frame1, text='Лучшее оружие: ' + pt.Best_weapon + ' ' + 'КД: ' + kda_weapon).pack()
+tk.Label(frame1, text='Средний урон по монику: ' + uron).pack()
 
 team = ['Пакеты', 'АОшки', 'Боевые', 'Зверобои', 'Баланс']
 tk.Label(frame1, text='Команда').pack()
@@ -193,10 +197,8 @@ edit222.pack()
 def raschet():
     team: str = edit111.get()
     enemy: str = edit222.get()
-    print(team, enemy)
     orwin = df.game_10.loc[(df['game_10'] == team) & (df['game_3'] == 'Победа') & (df['game_11'] == enemy)].count() + df.game_11.loc[(df['game_11'] == team) & (df['game_3'] == 'Поражение') & (df['game_10'] == enemy)].count()
     orlose = df.game_10.loc[(df['game_10'] == team) & (df['game_3'] == 'Поражение') & (df['game_11'] == enemy)].count() + df.game_11.loc[(df['game_11'] == team) & (df['game_3'] == 'Победа') & (df['game_10'] == enemy)].count()
-    print(orwin, orlose)
 
     def show_chance():
         try:
@@ -214,10 +216,6 @@ def raschet():
 
 
 tk.Button(frame1, text='Расчитать', command=raschet, padx=10).pack()
-
-tk.Label(frame1, text='Твой КД: ' + kda).pack()
-tk.Label(frame1, text='Лучшая броня: ' + pt.Best_armor + ' ' + 'КД: ' + kda_armor).pack()
-tk.Label(frame1, text='Лучшее оружие: ' + pt.Best_weapon + ' ' + 'КД: ' + kda_weapon).pack()
 
 frame1.pack(side=tk.LEFT)
 
@@ -238,7 +236,8 @@ tk.Button(fbr, command=pt.show_winrate, text='Винрейт').pack()
 tk.Button(fbr, command=pt.show_armor, text='Выбор брони').pack()
 tk.Button(fbr, command=pt.show_weapon, text='Выбор оружия').pack()
 tk.Button(fbr, command=pt.show_team, text='Командка').pack()
-tk.Button(fbr, command=pt.show_enemy, text='Вороги').pack()
+tk.Button(fbr, command=pt.show_enemy, text='Противники').pack()
+tk.Button(fbr, command=pt.show_side, text='Стороны').pack()
 
 frame2.pack(side=tk.RIGHT)
 
