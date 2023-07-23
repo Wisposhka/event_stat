@@ -194,146 +194,24 @@ def raschet():
     team: str = edit111.get()
     enemy: str = edit222.get()
     print(team, enemy)
-    orwin = 1
-    orlose = 1
+    orwin = df.game_10.loc[(df['game_10'] == team) & (df['game_3'] == 'Победа') & (df['game_11'] == enemy)].count() + df.game_11.loc[(df['game_11'] == team) & (df['game_3'] == 'Поражение') & (df['game_10'] == enemy)].count()
+    orlose = df.game_10.loc[(df['game_10'] == team) & (df['game_3'] == 'Поражение') & (df['game_11'] == enemy)].count() + df.game_11.loc[(df['game_11'] == team) & (df['game_3'] == 'Победа') & (df['game_10'] == enemy)].count()
+    print(orwin, orlose)
 
     def show_chance():
-        orwin2 = orwin
-        orlose2 = orlose
-        print(orwin2, orlose2)
-        data = {'Category': ['Победа', 'Поражение'],
-                'Value': [orwin2, orlose2]}
-        for_circle = pd.DataFrame(data)
-        fig, ax = plt.subplots()
-        ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
-        ax.axis('equal')
-        plt.title('Прогноз на игру')
-        plt.show()
+        try:
+            data = {'Category': ['Победа', 'Поражение'],
+                    'Value': [orwin, orlose]}
+            for_circle = pd.DataFrame(data)
+            fig, ax = plt.subplots()
+            ax.pie(for_circle['Value'], labels=for_circle['Category'], startangle=50, counterclock=False, autopct='%1.1f%%')
+            ax.axis('equal')
+            plt.title('Прогноз на игру')
+            plt.show()
+        except:
+            ms.showerror(title="Windows.exe", message="Нет данных")
 
-    if team == pt.paket:
-        if enemy == pt.paket:
-            orwin = pt.et15
-            orlose = pt.et15p
-            show_chance()
-        else:
-            if enemy == pt.boevie:
-                orwin = pt.et12
-                orlose = pt.et12p
-                show_chance()
-            else:
-                if enemy == pt.AOshki:
-                    orwin = pt.et13
-                    orlose = pt.et13p
-                    show_chance()
-                else:
-                    if enemy == pt.zveroboi:
-                        orwin = pt.et10
-                        orlose = pt.et10p
-                        show_chance()
-                    else:
-                        orwin = pt.et14
-                    orlose = pt.et14p
-                    show_chance()
-    else:
-        if team == pt.boevie:
-            if enemy == pt.paket:
-                orwin = pt.et21
-                orlose = pt.et21p
-                show_chance()
-            else:
-                if enemy == pt.boevie:
-                    orwin = pt.et25
-                    orlose = pt.et25p
-                    show_chance()
-                else:
-                    if enemy == pt.AOshki:
-                        orwin = pt.et23
-                        orlose = pt.et23p
-                        show_chance()
-                    else:
-                        if enemy == pt.zveroboi:
-                            orwin = pt.et20
-                            orlose = pt.et20p
-                            show_chance()
-                        else:
-                            orwin = pt.et24
-                            orlose = pt.et24p
-                            show_chance()
-        else:
-            if team == pt.AOshki:
-                if enemy == pt.paket:
-                    orwin = pt.et01
-                    orlose = pt.et01p
-                    show_chance()
-                else:
-                    if enemy == pt.boevie:
-                        orwin = pt.et02
-                        orlose = pt.et02p
-                        show_chance()
-                    else:
-                        if enemy == pt.AOshki:
-                            orwin = pt.et05
-                            orlose = pt.et05p
-                            show_chance()
-                        else:
-                            if enemy == pt.zveroboi:
-                                orwin = pt.et03
-                                orlose = pt.et03p
-                                show_chance()
-                            else:
-                                orwin = pt.et04
-                                orlose = pt.et04p
-                                show_chance()
-            else:
-                if team == pt.zveroboi:
-                    if enemy == pt.paket:
-                        orwin = pt.et41
-                        orlose = pt.et41p
-                        show_chance()
-                    else:
-                        if enemy == pt.boevie:
-                            orwin = pt.et42
-                            orlose = pt.et42p
-                            show_chance()
-                        else:
-                            if enemy == pt.AOshki:
-                                orwin = pt.et40
-                                orlose = pt.et40p
-                                show_chance()
-                            else:
-                                if enemy == pt.zveroboi:
-                                    orwin = pt.et45
-                                    orlose = pt.et45p
-                                    show_chance()
-                                else:
-                                    orwin = pt.et43
-                                    orlose = pt.et43p
-                                    show_chance()
-                else:
-                    if team == pt.balans:
-                        if enemy == pt.paket:
-                            orwin = pt.et31
-                            orlose = pt.et31p
-                            show_chance()
-                        else:
-                            if enemy == pt.boevie:
-                                orwin = pt.et34
-                                orlose = pt.et34p
-                                show_chance()
-                            else:
-                                if enemy == pt.AOshki:
-                                    orwin = pt.et30
-                                    orlose = pt.et30p
-                                    show_chance()
-                                else:
-                                    if enemy == pt.zveroboi:
-                                        orwin = pt.et32
-                                        orlose = pt.et32p
-                                        show_chance()
-                                    else:
-                                        orwin = pt.et35
-                                        orlose = pt.et35p
-                                        show_chance()
+    show_chance()
 
 
 tk.Button(frame1, text='Расчитать', command=raschet, padx=10).pack()

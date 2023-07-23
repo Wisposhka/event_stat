@@ -163,19 +163,3 @@ def show_enemy():
     ax.axis('equal')
     plt.title('Выбор противников')
     plt.show()
-
-
-# ЩА АХУЕЕТЕ
-
-# def show_chance():
-paket = 'Пакеты'
-boevie = 'Боевые'
-AOshki = 'АОшки'
-zveroboi = 'Зверобои'
-balans = 'Баланс'
-
-data_list = [paket, boevie, AOshki, zveroboi, balans]
-
-for i in data_list:
-    for z in data_list:
-        print(df.game_10.loc[(df['game_10'] == i) & (df['game_3'] == 'Победа') & (df['game_11'] == z)].count())
