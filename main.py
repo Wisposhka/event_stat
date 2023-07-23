@@ -3,7 +3,7 @@ from tkinter import messagebox as ms
 import tkinter.ttk as ttk
 import sqlite3
 from datetime import datetime
-import pandas_t as pt
+import analysis as pt
 import pandas as pd
 import matplotlib.pyplot as plt
 
