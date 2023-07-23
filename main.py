@@ -336,7 +336,7 @@ def raschet():
                                         show_chance()
 
 
-tk.Button(frame1, text='Расчитать', command=raschet).pack()
+tk.Button(frame1, text='Расчитать', command=raschet, padx=10).pack()
 
 tk.Label(frame1, text='Твой КД: ' + kda).pack()
 tk.Label(frame1, text='Лучшая броня: ' + pt.Best_armor + ' ' + 'КД: ' + kda_armor).pack()
