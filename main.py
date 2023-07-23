@@ -6,6 +6,7 @@ from datetime import datetime
 import analysis as pt
 import pandas as pd
 import matplotlib.pyplot as plt
+from core import corr
 
 games_tabl = sqlite3.connect("games_tabl")
 games_tabl_C = games_tabl.cursor()
@@ -232,6 +233,8 @@ button_add = tk.Button(fbl, text='Добавить', command=edit1)
 button_add.pack()
 buttonf15 = tk.Button(fbl, text='Удалить', command=delete_w)
 buttonf15.pack()
+tk.Button(fbl, command=corr, text='Зависимость').pack()
+tk.Button(fbr, command=pt.show_winrate, text='Винрейт').pack()
 tk.Button(fbr, command=pt.show_winrate, text='Винрейт').pack()
 tk.Button(fbr, command=pt.show_armor, text='Выбор брони').pack()
 tk.Button(fbr, command=pt.show_weapon, text='Выбор оружия').pack()
